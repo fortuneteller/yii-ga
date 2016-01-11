@@ -33,6 +33,11 @@ class GoogleAnalytics extends \CApplicationComponent
 	public $cookieDomain;
 	
 	/**
+	 * @var boolean, enables rendering all the code in the head
+	 */
+	public $forceHeadPlacement = false;
+	
+	/**
 	 * @var \yiiga\models\Transaction[] list of registered transactions
 	 */
 	private $_transactions = array();
@@ -67,7 +72,7 @@ EOD;
 EOD;
 
 		Yii::app()->clientScript->registerScript(__CLASS__.'#tracking-head', $headScript, \CClientScript::POS_HEAD);
-		Yii::app()->clientScript->registerScript(__CLASS__.'#tracking-body', $bodyEndScript, \CClientScript::POS_END);
+		Yii::app()->clientScript->registerScript(__CLASS__.'#tracking-body', $bodyEndScript, $this->forceHeadPlacement ? \CClientScript::POS_HEAD : \CClientScript::POS_END);
 	}
 
 	/**
